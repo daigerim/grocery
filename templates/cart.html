@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="w-50 p-3" align="left" style="border: 1px solid gray; border-radius: 10px; margin-top: 10px;">
+    <h1 align="center">Your Cart</h1>
+    {% if error %}
+      <p style="color: red" align="center">{{error}}</p>
+    {% endif %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for product in cart %}
+            <tr>
+              <th scope="row">{{product.count}}</th>
+              <td>{{product.name}}</td>
+              <td>{{product.price}}</td>
+            </tr>
+          {%endfor%}
+        </tbody>
+         <tr>
+            <th scope="row"></th>
+            <td>Total: </td>
+            <td>{{total}}</td>
+          </tr>
+      </table>
+    {% if cart %}
+      <div align="center">
+        <form action="" method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="total" value="{{total}}">
+          <input type="submit" class="btn btn-success" style="font-size: 20px" value="Puschase">
+        </form>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

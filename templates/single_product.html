@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="card text-white bg-dark mb-3" style="max-width: 40rem;">
+      <div class="card-header"><h3><i>{{product_name}}</i></h3></div>
+      <div class="card-body">
+          <img src="{{ product_image_url }}" class="card-img-top" alt="..." style="width: 60%; margin-right: 20px;" align="left;" >
+          <div class="w-75 p-3" style="border: 1px solid gray; border-radius: 10px; margin-top: 10px;">
+              <div class="card-text" style="text-align:center">
+                  <p>Product description: {{product_description}}</p>
+                  <p>Manufacturing company: {{product_manufacturer}}</p>
+                  <p>Category: {{product_category}}</p>
+                  <p>Weight of the good: {{product_value}} {{product_unit}}</p>
+                  <p>Manufactured date: {{product_manufacturing_date}}</p>
+                  <p>Expiration date: {{expired_date}}</p>
+              </div>
+          </div>
+
+      </div>
+    </div>
+{% endblock %}

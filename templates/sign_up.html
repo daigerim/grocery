@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="" method="post">
+  {% csrf_token %}
+  <div class="form-row w-50 p-2 ">
+    <div class="form-group col-md-6 w-50 p-2 ">
+      <label for="inputEmail4">Email</label>
+      {% if error %}
+        <p id="error_text" style="color: red">{{ error }}</p>
+        <input type="email" class="form-control border-danger" id="inputEmail4" placeholder="Example@gmail.com" name="email" onchange="changeEmail()">
+      {% else %}
+        <input type="email" class="form-control border-success" id="inputEmail4" placeholder="Example@gmail.com" name="email">
+      {% endif %}
+    </div>
+    <div class="form-group col-md-6 w-50 p-2 ">
+      <label for="inputPassword4">Password</label>
+      <input type="password" class="form-control" id="inputPassword4" placeholder="Password" onchange="checkPasswords()" name="password">
+    </div>
+    <div class="form-group col-md-6 w-50 p-2">
+      <label for="inputPassword2">Password 2</label>
+      <input type="password" class="form-control" id="inputPassword2" placeholder="Confirm Password" onchange="checkPasswords()" name="password2">
+    </div>
+    <p id="password_text"></p>
+  </div>
+  <div class="form-row w-50 p-2 ">
+    <div class="form-group col-md-6 w-50 p-2 ">
+      <label for="inputFirstName">First name</label>
+      <input type="text" class="form-control" id="inputFirstName" placeholder="Your name" name="name" value="{{name}}">
+    </div>
+    <div class="form-group col-md-6 w-50 p-2 ">
+      <label for="inputLastName">Last name</label>
+      <input type="text" class="form-control" id="inputLastName" placeholder="Your last name" name="lastname"  value="{{lastname}}">
+    </div>
+  </div>
+  <div class="form-group w-50 p-2">
+    <div class="form-group col-md-6 w-50 p-2 ">
+      <label for="inputPhone">Phone number</label>
+      <input type="text" class="form-control" id="inputPhone" placeholder="8 XXX XXX XXXX" name="phone" value="{{phone}}">
+    </div>
+    <div class="form-group col-md-6 w-50 p-2 ">
+      <label for="inputBirthDate">Birth Date</label>
+      <input type="date" class="form-control" id="inputBirthDate" placeholder="Your birthday" name="birthdate" value="{{birthdate}}">
+    </div>
+  </div>
+  <div class="form-group w-50 p-2">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="gridCheck">
+      <label class="form-check-label" for="gridCheck">
+        Check me out
+      </label>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary" id="submit" disabled="disabled">Sign up</button>
+</form>
+<script>
+  function checkPasswords(){
+    let password1 = document.getElementById("inputPassword4")
+    let password2 = document.getElementById("inputPassword2")
+    if (password1.value != password2.value){
+        password1.classList.remove('border-success');
+        password1.classList.add('border-danger');
+        password2.classList.add('border-danger');
+        password2.classList.remove('border-success');
+        document.getElementById('submit').disabled='disabled';
+        document.getElementById('password_text').innerHTML='Passwords did not match!';
+        document.getElementById('password_text').style.color='red';
+    }
+    else{
+        password1.classList.remove('border-danger');
+        password1.classList.add('border-success');
+        password2.classList.remove('border-danger');
+        password2.classList.add('border-success');
+        document.getElementById('submit').disabled='';
+        document.getElementById('password_text').innerHTML='Passwords match!';
+        document.getElementById('password_text').style.color='green';
+
+    }
+  }
+  function changeEmail(){
+    let email = document.getEmailById('inputEmail4');
+    let email_text = document.getElementById('email_text');
+    email_text.remove();
+    email.classList.remove('border-danger');
+    email.classList.add('border-success');
+  };
+</script>
+{% endblock %}

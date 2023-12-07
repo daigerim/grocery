@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>{{category}}</h2>
+  <div class="w-75 p-3" style="border: 1px solid gray; border-radius: 10px; margin-top: 10px;">
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+      {%for product in products %}
+        <div class="col">
+            <div class="card h-100">
+              <a href="{% url 'single_product_url' product.id%}" style="text-decoration:none; color: inherit;">
+                <img src="{{ product.image.url }}" class="card-img-top" alt="...">
+                <div class="card-body border border-top" style="overflow: hidden;">
+                  <h5 class="card-title" style="height: 50px;">{{product.name}}</h5>
+                  <p class="card-text">{{product.value}} {{product.unit}}</p>
+              </div>
+              </a>
+              <div class="card-footer" style="background-color: #ffdf00;">
+                <p class="fs-3" style="margin: 2px;"><b>{{product.price}} tg</b></p>
+                <button id="{{product.id}}" class="btn btn-info" onclick="addToCart(this.id,'{% url 'add_cart_url' product.id %}')">Add to cart</button>
+              </div>
+            </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <script>
+    function addToCart(button_id, url){
+      let button = document.getElementById(button_id);
+      let request = new XMLHttpRequest();
+      request.onreadystatechange = function(){
+        if(request.readyState == 4){
+           button.innerHTML = 'Added!'
+        }
+      }
+      request.open('GET', url, true);
+      request.send(null);
+    }
+  </script>
+{% endblock %}
